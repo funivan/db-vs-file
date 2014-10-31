@@ -1,29 +1,33 @@
 <?php
 
-# 100 штук
-//  0.026661157608032
-//  0.021665096282959
-//  0.022915840148926
+# 100 
+//  0.0098931789398193
+//  0.017664909362793
+//  0.017143964767456
 
-# 1000 штук
-//  0.12124109268188
-//  0.14622402191162
-//  0.1536238193512
+# 1000 
+//  0.12712502479553
+//  0.13081097602844
+//  0.13721799850464
 
 # 10000
-//  1.2797501087189
-//  1.2138180732727
-//  1.2842011451721
-
+//  1.3502678871155
+//  1.1555650234222
+//  1.2192490100861
   
-  $itemsLeftForCheck = 10000;
+# 20000
+//  2.5724170207977 
+//  2.108197927475 
+//  2.490170955658   
 
-  $items = [];
-  while ($itemsLeftForCheck > 0) {
-    $items[] = rand(0, 100000);
-    $itemsLeftForCheck--;
-  }
-
+# mysql -u root -p1111 -D test -e 'truncate table email' && php db-write.php 100 && php db-read.php 100;  
+# mysql -u root -p1111 -D test -e 'truncate table email' && php db-write.php 1000 && php db-read.php 1000;  
+# mysql -u root -p1111 -D test -e 'truncate table email' && php db-write.php 10000 && php db-read.php 10000;  
+# mysql -u root -p1111 -D test -e 'truncate table email' && php db-write.php 20000 && php db-read.php 20000;  
+  
+  $items = require_once 'items.php';
+  echo "start " . count($items) . "\n";
+  
   $start_time = microtime(true);
 
   $pdo = new PDO('mysql:dbname=test;host=127.0.0.1', 'root', '1111');
@@ -37,4 +41,4 @@
   }
 
   $time = microtime(true) - $start_time;
-  echo 'Час на операцію: ' . $time . ' сек<br>';
+  echo "Час на операцію: " . $time . " сек\n";
